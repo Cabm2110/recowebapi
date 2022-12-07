@@ -2,9 +2,9 @@
   "name": "recowebapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node ."
+    "start": "node ./dist/app.js"
   },
   "keywords": [],
   "author": "",
