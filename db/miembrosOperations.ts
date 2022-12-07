@@ -30,8 +30,8 @@ export function updateMiembroId(notarjeta: string, body: any, db: mysql.Connecti
 
 export function insertMiembro(body: any, db: mysql.Connection, callback: any){
 
-    let insertQuery = "insert into miembros ( notarjeta, nombre, dpi, telefono, direccion, correo, fechaingreso) values ( ? )";
-    let values = [body.notarjeta, body.nombre, body.dpi, body.telefono, body.direccion, body.correo, body.fechaingreso ];
+    let insertQuery = "insert into miembros ( notarjeta, nombre, dpi, telefono, direccion, correo, fechaingreso, estado) values ( ? )";
+    let values = [body.notarjeta, body.nombre, body.dpi, body.telefono, body.direccion, body.correo, body.fechaingreso, body.estado ];
 
     db.query(insertQuery, [values],  function(err, result){
         callback(err, result);
