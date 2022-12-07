@@ -4,6 +4,7 @@ export function readMiembros(db: mysql.Connection, callback : any){
     db.query("select * from miembros", function(err, result){
         callback(err, result);
     });
+    db.end();
 }
 
 export function readMiembroId(notarjeta: string, db: mysql.Connection, callback : any){
@@ -11,6 +12,7 @@ export function readMiembroId(notarjeta: string, db: mysql.Connection, callback 
     db.query( query, notarjeta, function(err, result) {
         callback(err, result);
     } );
+    db.end();
 }
 
 
@@ -22,6 +24,7 @@ export function updateMiembroId(notarjeta: string, body: any, db: mysql.Connecti
     db.query(query, function(err, result){
         callback(err, result);
     });
+    db.end();
 }
 
 
@@ -33,6 +36,7 @@ export function insertMiembro(body: any, db: mysql.Connection, callback: any){
     db.query(insertQuery, [values],  function(err, result){
         callback(err, result);
     });
+    db.end();
 }
 
 export function estadoMiembroId(body: any, notarjeta: string, db: mysql.Connection, callback: any){
@@ -43,12 +47,5 @@ export function estadoMiembroId(body: any, notarjeta: string, db: mysql.Connecti
     db.query( query, function(err, result) {
         callback(err, result );
     } );
+    db.end();
 }
-
-
-
-
-
-
-
-
