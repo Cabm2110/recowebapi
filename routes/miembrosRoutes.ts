@@ -6,7 +6,7 @@ import mysql from 'mysql';
 
 export const getMiembros = (req: Request, res: Response) => {
 
-    readMiembros(db, ( result: any) => {
+    readMiembros(db, (err: any, result: any) => {
         if(Object.entries(result).length != 0){
             res.json({ result });
         }
@@ -23,7 +23,7 @@ export const getMiembro = (req: Request, res: Response) => {
 
     const { id } = req.params;
 
-    readMiembroId(id, db, (result: any) => {
+    readMiembroId(id, db, (err: any, result: any) => {
         if(Object.entries(result).length != 0){
             res.json({ result });
         }

@@ -2,16 +2,14 @@ import mysql from 'mysql';
 
 export function readMiembros(db: mysql.Connection, callback : any){
     db.query("select * from miembros", function(err, result){
-        if(err) throw err;
-        callback(result);
+        callback(err, result);
     });
 }
 
 export function readMiembroId(notarjeta: string, db: mysql.Connection, callback : any){
     let query = "select * from miembros where notarjeta = ?";
     db.query( query, notarjeta, function(err, result) {
-        if(err) throw err;
-        callback(result);
+        callback(err, result);
     } );
 }
 

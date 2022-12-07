@@ -7,7 +7,7 @@ exports.deleteMiembro = exports.putMiembro = exports.postMiembro = exports.getMi
 const miembrosOperations_1 = require("../db/miembrosOperations");
 const connection_1 = __importDefault(require("../db/connection"));
 const getMiembros = (req, res) => {
-    (0, miembrosOperations_1.readMiembros)(connection_1.default, (result) => {
+    (0, miembrosOperations_1.readMiembros)(connection_1.default, (err, result) => {
         if (Object.entries(result).length != 0) {
             res.json({ result });
         }
@@ -22,7 +22,7 @@ const getMiembros = (req, res) => {
 exports.getMiembros = getMiembros;
 const getMiembro = (req, res) => {
     const { id } = req.params;
-    (0, miembrosOperations_1.readMiembroId)(id, connection_1.default, (result) => {
+    (0, miembrosOperations_1.readMiembroId)(id, connection_1.default, (err, result) => {
         if (Object.entries(result).length != 0) {
             res.json({ result });
         }

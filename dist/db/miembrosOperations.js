@@ -3,18 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.estadoMiembroId = exports.insertMiembro = exports.updateMiembroId = exports.readMiembroId = exports.readMiembros = void 0;
 function readMiembros(db, callback) {
     db.query("select * from miembros", function (err, result) {
-        if (err)
-            throw err;
-        callback(result);
+        callback(err, result);
     });
 }
 exports.readMiembros = readMiembros;
 function readMiembroId(notarjeta, db, callback) {
     let query = "select * from miembros where notarjeta = ?";
     db.query(query, notarjeta, function (err, result) {
-        if (err)
-            throw err;
-        callback(result);
+        callback(err, result);
     });
 }
 exports.readMiembroId = readMiembroId;
