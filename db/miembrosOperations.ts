@@ -1,51 +1,84 @@
 import mysql from 'mysql';
 
-export function readMiembros(db: mysql.Connection, callback : any){
-    db.query("select * from miembros", function(err, result){
-        callback(err, result);
+export function readMiembros(pool: mysql.Pool, callback : any){
+
+    pool.getConnection( function( err, connection){
+        connection.query("select * from miembros", function(err, result){
+            callback(err, result);
+        });
+        connection.release();
     });
-    db.end();
+
+    // pool.query("select * from miembros", function(err, result){
+    //     callback(err, result);
+    // });
+    // pool.end();
 }
 
-export function readMiembroId(notarjeta: string, db: mysql.Connection, callback : any){
-    let query = "select * from miembros where notarjeta = ?";
-    db.query( query, notarjeta, function(err, result) {
-        callback(err, result);
-    } );
-    db.end();
+export function readMiembroId(notarjeta: string, pool: mysql.Pool, callback : any){
+
+    pool.getConnection( function( err, connection){
+        connection.query("select * from miembros where notarjeta = ?", notarjeta, function(err, result){
+            callback(err, result);
+        });
+        connection.release();
+    });
+
+    // let query = "select * from miembros where notarjeta = ?";
+    // pool.query( query, notarjeta, function(err, result) {
+    //     callback(err, result);
+    // } );
+    // pool.end();
 }
 
 
-export function updateMiembroId(notarjeta: string, body: any, db: mysql.Connection, callback: any){
+export function updateMiembroId(notarjeta: string, body: any, pool: mysql.Pool, callback: any){
 
     let updateQuery = "update miembros set nombre = ?, dpi = ?, telefono = ?, direccion = ?, correo = ? where notarjeta = ?";
-    let query = db.format(updateQuery, [body.nombre, body.dpi, body.telefono, body.direccion, body.correo, notarjeta ]);
+    let query = mysql.format(updateQuery, [body.nombre, body.dpi, body.telefono, body.direccion, body.correo, notarjeta ]);
 
-    db.query(query, function(err, result){
-        callback(err, result);
+    pool.getConnection( function (err, connection) {
+        connection.query(query, function(err, result){
+            callback(err, result);
+        });
+        connection.release();
     });
-    db.end();
+
+
+    // db.query(query, function(err, result){
+    //     callback(err, result);
+    // });
+    // db.end();
 }
 
 
-export function insertMiembro(body: any, db: mysql.Connection, callback: any){
+export function insertMiembro(body: any, pool: mysql.Pool, callback: any){
 
-    let insertQuery = "insert into miembros ( notarjeta, nombre, dpi, telefono, direccion, correo, fechaingreso, estado) values ( ? )";
+    let insertQuery = "insert into miembros ( notarjeta, nombre, dpi, telefono, direccion, correo, fechaingreso, estado) values ( ?,?,?,?,?,?,?,? )";
     let values = [body.notarjeta, body.nombre, body.dpi, body.telefono, body.direccion, body.correo, body.fechaingreso, body.estado ];
 
-    db.query(insertQuery, [values],  function(err, result){
-        callback(err, result);
+    pool.getConnection( function (err, connection) {
+        connection.query(insertQuery, values, function(err, result){
+            callback(err, result);
+        });
+        connection.release();
     });
-    db.end();
 }
 
-export function estadoMiembroId(body: any, notarjeta: string, db: mysql.Connection, callback: any){
+export function estadoMiembroId(body: any, notarjeta: string, pool: mysql.Pool, callback: any){
 
     let updateQuery = "update miembros set estado = ? where notarjeta = ?";
-    let query = db.format(updateQuery, [body.estado, notarjeta]);
+    let values = [body.estado, notarjeta];
 
-    db.query( query, function(err, result) {
-        callback(err, result );
-    } );
-    db.end();
+    pool.getConnection( function (err, connection) {
+        connection.query(updateQuery, values, function(err, result){
+            callback(err, result);
+        });
+        connection.release();
+    });
+
+    // pool.query( query, function(err, result) {
+    //     callback(err, result );
+    // } );
+    // pool.end();
 }

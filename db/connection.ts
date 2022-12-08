@@ -3,11 +3,11 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const db = mysql.createConnection({
+const pool = mysql.createPool({
     host: process.env.DBHOST,
     user: process.env.DBUSER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
 
-export default db;
+export default pool;

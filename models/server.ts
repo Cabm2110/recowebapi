@@ -2,7 +2,8 @@
 import express, { Application} from 'express'
 import userRoutes from '../controllers/miembrosController';
 import cors from 'cors';
-import db from '../db/connection';
+import pool from '../db/connection';
+
 
 class Server {
 
@@ -25,7 +26,7 @@ class Server {
 
     //Todo: Conectar a base de datos 
     dbConnection () {
-        db.connect((err) => {
+        pool.getConnection((err) => {
         if(err) throw err;
         console.log('Database Online!');
     });  

@@ -21,7 +21,7 @@ class Server {
     }
     //Todo: Conectar a base de datos 
     dbConnection() {
-        connection_1.default.connect((err) => {
+        connection_1.default.getConnection((err) => {
             if (err)
                 throw err;
             console.log('Database Online!');

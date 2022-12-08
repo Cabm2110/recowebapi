@@ -11,10 +11,18 @@ const getMiembros = (req, res) => {
         if (Object.entries(result).length != 0) {
             res.json({ result });
         }
+        else if (err) {
+            res.status(400).json({
+                status: 400,
+                msg: ' No se encontraron miembros activos!',
+                err
+            });
+        }
         else {
             res.status(400).json({
                 status: 400,
                 msg: ' No se encontraron miembros activos!',
+                err
             });
         }
     });
@@ -23,13 +31,20 @@ exports.getMiembros = getMiembros;
 const getMiembro = (req, res) => {
     const { id } = req.params;
     (0, miembrosOperations_1.readMiembroId)(id, connection_1.default, (err, result) => {
+        if (err)
+            res.status(400).json({
+                status: 400,
+                msg: ' No se encontraron miembros activos!',
+                err
+            });
         if (Object.entries(result).length != 0) {
             res.json({ result });
         }
         else {
             res.status(400).json({
                 status: 400,
-                msg: `No se encontro miembro activo con el número de tarjeta ${id}`,
+                msg: ' No se encontraron miembros activos!',
+                err
             });
         }
     });

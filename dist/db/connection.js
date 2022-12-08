@@ -6,11 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mysql_1 = __importDefault(require("mysql"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const db = mysql_1.default.createConnection({
+const pool = mysql_1.default.createPool({
     host: process.env.DBHOST,
     user: process.env.DBUSER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
-exports.default = db;
+exports.default = pool;
 //# sourceMappingURL=connection.js.map
